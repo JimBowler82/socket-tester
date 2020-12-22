@@ -1,6 +1,7 @@
 // DOM References
 const joinRoomBtn = document.querySelector("#joinroom");
 const startSessionBtn = document.querySelector("#start");
+const endSession = document.querySelector("#end");
 const clientView = document.querySelector("#client-view");
 const questionH3 = document.querySelector("#question");
 const timerP = document.querySelector("#timer");
@@ -45,6 +46,11 @@ slider.addEventListener("change", () => {
 
 refreshBtn.addEventListener("click", () => {
   location.href = location.href;
+});
+
+endSession.addEventListener("click", (e) => {
+  e.preventDefault();
+  socket.emit("stopTimer");
 });
 
 // Socket Logic
