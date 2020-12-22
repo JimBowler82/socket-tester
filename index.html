@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <style>
+      body {
+        padding: 30px;
+      }
+
+      form {
+        width: 600px;
+        margin-bottom: 15px;
+      }
+
+      #questionInput {
+        width: 250px;
+        margin-right: 20px;
+      }
+
+      #timerInput {
+        width: 50px;
+        margin-right: 20px;
+      }
+
+      #client-view {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 300px;
+        padding: 20px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Socket Tester</h1>
+
+    <h3>Test Buttons</h3>
+
+    <form id="joinForm">
+      <fieldset>
+        <legend>Join Room</legend>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="username" />
+
+        <label for="role">Role</label>
+        <select name="role" id="roleSelect">
+          <option value="bootcamper">Bootcamper</option>
+          <option value="guest">Guset</option>
+          <option value="coach">Coach</option>
+        </select>
+
+        <label for="room">Room</label>
+        <select name="room" id="roomSelect">
+          <option value="thumbometer" selected>Thumbometer</option>
+        </select>
+        <button id="joinroom">Join Room</button>
+      </fieldset>
+    </form>
+
+    <form id="sessionForm">
+      <fieldset>
+        <legend>Start Session</legend>
+        <label for="question">Question</label>
+        <input type="text" name="question" id="questionInput" />
+
+        <label for="role">Timer</label>
+        <input type="number" name="timer" id="timerInput" min="0" max="30" />
+        <button id="start">Start Session</button>
+      </fieldset>
+    </form>
+
+    Client View
+    <div id="client-view">
+      <h3 id="question">-- No Question --</h3>
+      <input type="range" name="range" id="range" value="0" disabled />
+      <p id="sliderValue"></p>
+      <p id="timer">Timer: -</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
