@@ -2,11 +2,16 @@
 const joinRoomBtn = document.querySelector("#joinroom");
 const startSessionBtn = document.querySelector("#start");
 const endSession = document.querySelector("#end");
-const clientView = document.querySelector("#client-view");
-const questionH3 = document.querySelector("#question");
-const timerP = document.querySelector("#timer");
+const clientQuestion = document.querySelector("#client-question");
+const speakerQuestion = document.querySelector("#speaker-question");
+const viewTimer1 = document.querySelector("#viewTimer1");
+const viewTimer2 = document.querySelector("#viewTimer2");
 const slider = document.querySelector("#range");
 const sliderVal = document.querySelector("#sliderValue");
+const thumb = document.querySelector("#thumb");
+const overallVal = document.querySelector("#overall-val");
+const subSpan = document.querySelector("#subCount");
+const totalSpan = document.querySelector("#totalUsers");
 const sessionDiv = document.querySelector("#sessionData");
 const dataList = document.querySelector("#dataList");
 const refreshBtn = document.querySelector("#refresh");
@@ -55,21 +60,29 @@ endSession.addEventListener("click", (e) => {
 
 // Socket Logic
 socket.on("startThumb", ({ sessionData, timer }) => {
-  questionH3.innerText = sessionData.question;
-  timerP.innerText = `Timer: ${timer}`;
+  clientQuestion.innerText = sessionData.question;
+  speakerQuestion.innerText = sessionData.question;
+  viewTimer1.innerText = `Timer: ${timer}`;
+  viewTimer2.innerText = `Timer: ${timer}`;
+  subSpan.innerText = sessionData.submissions;
+  totalSpan.innerText = sessionData.participants;
   slider.disabled = false;
 });
 
 socket.on("counter", (counter) => {
-  timerP.innerText = `Timer: ${counter}`;
+  viewTimer1.innerText = `Timer: ${counter}`;
+  viewTimer2.innerText = `Timer: ${counter}`;
 });
 
 socket.on("finished", ({ sessionData }) => {
-  timerP.innerText = "Timer: 0 - Finished";
+  viewTimer1.innerText = "Timer: 0 - Finished";
+  viewTimer2.innerText = "Timer: 0 - Finished";
   slider.disabled = true;
-});
 
-socket.on("finished", ({ sessionData }) => {
+  overallVal.innerText = `Overall Mood: ${sessionData.thumbometerResult}`;
+  subSpan.innerText = sessionData.submissions;
+  totalSpan.innerText = sessionData.participants;
+
   dataList.innerHTML = `
   <li>ID: ${sessionData.id}</li>
   <li>Participants: ${sessionData.participants}</li>
@@ -77,4 +90,13 @@ socket.on("finished", ({ sessionData }) => {
   <li>Thumbometer Result: ${sessionData.thumbometerResult}</li>
   <li>Question: ${sessionData.question}</li>
   `;
+});
+
+socket.on("thumbUpdate", ({ sessionData }) => {
+  thumb.style.transform = `rotate(${
+    180 + (sessionData.thumbometerResult / 100) * 180
+  }deg)`;
+  overallVal.innerText = `Overall Mood: ${sessionData.thumbometerResult}`;
+  subSpan.innerText = sessionData.submissions;
+  totalSpan.innerText = sessionData.participants;
 });

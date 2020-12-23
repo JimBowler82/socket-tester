@@ -25,6 +25,7 @@
       }
 
       #client-view,
+      #speaker-view,
       #sessionData {
         display: flex;
         flex-direction: column;
@@ -34,8 +35,26 @@
         border: 1px solid black;
       }
 
+      #viewsContainer {
+        display: flex;
+        width: 700px;
+        justify-content: space-between;
+      }
+
       #dataList {
         width: 100%;
+      }
+
+      #thmb-img {
+        border-radius: 50%;
+        padding: 5px;
+        overflow: hidden;
+      }
+
+      #thmb-img img {
+        transform-origin: 50% 50%;
+        transform: rotate(180deg);
+        transition: transform 0.8s ease-in-out;
       }
     </style>
   </head>
@@ -54,7 +73,7 @@
         <label for="role">Role</label>
         <select name="role" id="roleSelect">
           <option value="bootcamper">Bootcamper</option>
-          <option value="guest">Guset</option>
+          <option value="guest">Guest</option>
           <option value="coach">Coach</option>
         </select>
 
@@ -87,12 +106,31 @@
 
     <h3>Views</h3>
 
-    Participant View
-    <div id="client-view">
-      <h3 id="question">-- No Question --</h3>
-      <input type="range" name="range" id="range" value="0" disabled />
-      <p id="sliderValue"></p>
-      <p id="timer">Timer: -</p>
+    <div id="viewsContainer">
+      <div>
+        Participant View
+        <div id="client-view">
+          <h3 id="client-question">-- No Question --</h3>
+          <input type="range" name="range" id="range" value="0" disabled />
+          <p id="sliderValue"></p>
+          <p id="viewTimer1">Timer: -</p>
+        </div>
+      </div>
+      <div>
+        Speaker / Guest View
+        <div id="speaker-view">
+          <h3 id="speaker-question">-- No Question --</h3>
+          <div id="thmb-img">
+            <img id="thumb" src="./images/thumb.png" width="100px" />
+          </div>
+          <p id="overall-val"></p>
+          <p id="viewTimer2">Timer: -</p>
+          <p id="userStats">
+            <span id="subCount">0</span> /
+            <span id="totalUsers">0</span> Participants
+          </p>
+        </div>
+      </div>
     </div>
 
     <br />
