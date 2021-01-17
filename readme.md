@@ -8,6 +8,6 @@ Plain HTML CSS JS psuedo front end used while learning web sockets for the Engag
 2. Run on index.html in the browser
 3. make sure the back end project is running
 
----
+##### Screenshot
 
 ![Screenshot](./images/screenshot.png "screenshot")
